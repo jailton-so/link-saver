@@ -28,7 +28,7 @@ body{
     padding: 10px;
     font-size: 1.3em;
     border-style: none;
-    width: 500px;
+    max-width: 500px;
     height: 50px;
     border-radius: 5px;
     background-color: #f5f2f6;
@@ -39,7 +39,7 @@ body{
     outline-offset: 2px;
 }
 #btn_submit{
-    width: 100px;
+    max-width: 100px;
     height: 50px;
     border: none;
     border-radius: 5px;
@@ -58,6 +58,7 @@ body{
 /* preview */
 #itensContainer{
     margin-top: 20px;
+    padding: 10px;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto;
@@ -67,7 +68,7 @@ body{
     align-items: center;
 }
 .item{
-    width: 300px;
+    max-width: 300px;
     background-color: #262626;
     padding: 10px;
     text-align: left;
