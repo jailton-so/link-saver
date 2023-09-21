@@ -1,0 +1,131 @@
+*{
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    background-color: #1a1a1a;
+    color: #f5f2f6;
+    margin: 0;
+    padding: 0;
+}
+
+.root{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title{
+    margin-bottom: 50px;
+}
+.giveLinkForm{
+    display: flex;
+    gap: 10px;
+}
+#inp_link{
+    padding: 10px;
+    font-size: 1.3em;
+    border-style: none;
+    width: 500px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #f5f2f6;
+
+}
+#inp_link:focus{
+    outline: 1px solid #e9e9e9;
+    outline-offset: 2px;
+}
+#btn_submit{
+    width: 100px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f5f2f6;
+    font-size: 1.1em;
+}
+#btn_submit:hover{
+    cursor: pointer;
+    background-color: #cfcfcf;
+}
+#btn_submit:active{
+    background-color: #b1b1b1;
+}
+
+
+/* preview */
+#itensContainer{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+    grid-gap: 10px;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+.item{
+    width: 300px;
+    background-color: #262626;
+    padding: 10px;
+    text-align: left;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    word-break: break-all;
+}
+
+.item:hover{
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+}
+
+.item .content{
+    background-color: #1f1f1f;
+    text-align: left;
+    border-radius: 15px;
+    padding-bottom: 5px;
+}
+.item .content:hover{
+    cursor: pointer;
+}
+.item a{
+    display: inline-block; /* Make it a block-level element */
+    width: 100%; /* Occupy the full width of the container */
+    white-space: normal; /* Allow text to wrap to the next line */
+}
+
+.content .thumbnail{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 15px;
+}
+.content .details{
+    padding: 5px;
+}
+.content .details .title{
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+.content .details .description{
+    font-size: 16px;
+    margin: 0;
+    padding: 5px;
+    color: #919191
+}
+.content .details .domain{
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    color: #919191
+}
+.item .link{
+    font-size: 14px;
+    margin: 10px;
+    padding: 0;
+    color: #4e60ff;
+    text-decoration: underline;
+    cursor: pointer;
+}
