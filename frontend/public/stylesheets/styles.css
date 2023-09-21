@@ -87,9 +87,7 @@ body{
     border-radius: 15px;
     padding-bottom: 5px;
 }
-.item .content:hover{
-    cursor: pointer;
-}
+
 .item a{
     display: inline-block; /* Make it a block-level element */
     width: 100%; /* Occupy the full width of the container */
@@ -97,7 +95,7 @@ body{
 }
 
 .content .thumbnail{
-    width: 100%;
+    max-width: 100%;
     height: auto;
     object-fit: contain;
     border-radius: 15px;
@@ -106,24 +104,24 @@ body{
     padding: 5px;
 }
 .content .details .title{
-    font-size: 18px;
+    font-size: 14px;
     margin: 0;
     padding: 0;
 }
 .content .details .description{
-    font-size: 16px;
+    font-size: 14px;
     margin: 0;
     padding: 5px;
     color: #919191
 }
 .content .details .domain{
-    font-size: 12px;
+    font-size: 11px;
     margin: 0;
     padding: 0;
     color: #919191
 }
 .item .link{
-    font-size: 14px;
+    font-size: 12px;
     margin: 10px;
     padding: 0;
     color: #4e60ff;
