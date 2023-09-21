@@ -1,6 +1,6 @@
 const giveLinkForm = document.querySelector('.giveLinkForm')
 const inp_link = document.getElementById('inp_link')
-const apiUrl = 'http://localhost:3000/api'
+const apiUrl = 'https://link-saver-wei8.onrender.com/api' // || 'http://localhost:3000/api'
 const btn_submit = document.getElementById('btn_submit')
 
 document.addEventListener("DOMContentLoaded", onPageLoad());
