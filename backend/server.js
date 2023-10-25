@@ -8,6 +8,7 @@ const dbConnection = require('./database')
 const app = express()
 const PORT = process.env.SERVER_PORT || 3000
 
+app.use(express.json())
 app.use('/', webRouter)
 app.use('/api', apiRouter)
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')))

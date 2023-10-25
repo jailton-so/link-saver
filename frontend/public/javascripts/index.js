@@ -1,7 +1,8 @@
 const giveLinkForm = document.querySelector('.giveLinkForm')
 const inp_link = document.getElementById('inp_link')
-const apiUrl = 'https://link-saver-wei8.onrender.com/api' // || 'http://localhost:3000/api'
+const apiUrl = 'https://link-saver-wei8.onrender.com/api' //|| 'http://localhost:3000/api'
 const btn_submit = document.getElementById('btn_submit')
+const btn_delete = document.getElementById('btn_delete')
 
 document.addEventListener("DOMContentLoaded", onPageLoad());
 async function onPageLoad(){
@@ -52,29 +53,33 @@ giveLinkForm.addEventListener('submit', async (e)=>{
     }
 })
 
-function openLink(){
-    const linkUrl = 'https://www.example.com';
-
-    window.open(linkUrl, '_blank');
-}
-
-
 async function getOg(targetUrl) {
     try {
         console.log('fetching... '+apiUrl+'?targeturl='+targetUrl)
         const response = await fetch(apiUrl+'?targeturl='+targetUrl)
         let websiteMetadata = 
         ogProps = await response.json();
+        console.log(ogProps)
         return ogProps
     } catch (error) {
         console.error('Erro ao buscar os dados:', error);
     }
 }
 
+const itensContainer = document.querySelector('#itensContainer');
+itensContainer.addEventListener('click', (e) => {
+    e.stopPropagation()
+    if(e.target.classList.contains('btn_delete')){
+        handleDelete(e.target.id)
+    }
+    
+})
 function createItem(p){
-    const newItem = document.createElement('div');
+    const newItem = document.createElement('div')    
     newItem.className = 'item'
+    newItem.id = 'item_id_'+p.id
     const itemTemplate = `
+    <button id="${p.id}" class="btn_delete">X</button>
     <div class="content">
         <img class="thumbnail" src="${p.ogMetaTags.image}" alt="thumbnail">
         <div class="details">
@@ -85,7 +90,60 @@ function createItem(p){
     </div>
     <a href="${p.url}" target="_blank" class="link">${p.url}</a>
 `;
-    const itensContainer = document.querySelector('#itensContainer');
     newItem.innerHTML = itemTemplate.trim();
     itensContainer.appendChild(newItem)
+}
+
+let deleteModalEnabled = false
+function handleDelete(i){
+    if(deleteModalEnabled === false){
+        deleteModalEnabled = true
+        const deleteModal = document.createElement('div')
+        deleteModal.className = 'deleteModal'
+        deleteModal.innerHTML = `
+            <p>Are you sure?</p>
+            <button class="modalButton" id="deleteModalConfirm">Delete</button>
+            <button class="modalButton" id="deleteModalCancel">Cancel</button>
+        `
+        document.body.appendChild(deleteModal)
+        const deleteModalConfirm = document.getElementById('deleteModalConfirm')
+        const deleteModalCancel = document.getElementById('deleteModalCancel')
+
+        deleteModalConfirm.addEventListener('click', async (e) => {
+            if(deleteModalEnabled === true){
+                deleteModalEnabled = false
+                deleteModalConfirm.disabled = true
+                deleteModalCancel.disabled = true
+                console.log('deleting: '+i)
+                
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({id: i}),
+                }
+                try {
+                    const response = await fetch(apiUrl+'/delete', options)
+                    const res = await response.json()
+                    console.log(res)
+                    console.log(i)
+                    const itemToRemove = document.getElementById('item_id_'+i)
+                    itemToRemove.remove()
+                    Modal.remove()
+                } catch(e) {
+                    console.log(e)
+                    deleteModalConfirm.disabled = false
+                    deleteModalCancel.disabled = false
+                    deleteModalEnabled = true
+                }
+            }
+        })
+        deleteModalCancel.addEventListener('click', (e) => {
+            if(deleteModalEnabled === true){
+                deleteModalEnabled = false
+                deleteModal.remove()
+            }
+        })
+    }
 }

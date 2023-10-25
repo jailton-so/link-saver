@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
 router.get('/retrieve_all', async (req, res) => {
     if(req.query['pw'] === '0521'){
         console.log('fetching all data...')
-        const response = await dbConnection`SELECT "url", "host", "ogMetaTags"::json as "ogMetaTags" FROM ${ dbConnection('webpages')} ORDER BY id DESC` // add LIMIT 10 at end
+        const response = await dbConnection`SELECT "id", "url", "host", "ogMetaTags"::json as "ogMetaTags" FROM ${ dbConnection('webpages')} ORDER BY id DESC` // add LIMIT 10 at end
         const parsedDataArray = response.map((item) => {
             let parsedItem = { ...item }; // Create a copy of the original object
             parsedItem.ogMetaTags = JSON.parse(item.ogMetaTags); // Parse the JSON string
@@ -61,4 +61,10 @@ router.get('/retrieve_all', async (req, res) => {
     }
 })
 
+router.post('/delete', async (req, res) => {
+    console.log('delete request')
+    console.log(req.body.id)
+    await dbConnection`DELETE FROM webpages WHERE id = ${req.body.id}`
+    res.status(200).json(JSON.stringify({response: 'test'}))
+})
 module.exports = router
